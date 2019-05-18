@@ -1,8 +1,13 @@
 import React, { Component } from 'react';
+import styles from './styles'
 
 class App extends Component {
   render() {
-    return(<h1>Help me Obi Wan Kenobi, you're my only hope</h1>)
+    return(
+      <div className={styles.app_container}>
+        <h1>Help me Obi Wan Kenobi, you're my only hope</h1>
+      </div>
+    )
   }
 }
 

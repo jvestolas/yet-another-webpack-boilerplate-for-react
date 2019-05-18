@@ -1,7 +1,8 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
-const DIST_PATH = path.resolve(__dirname, 'dist');
+const DIST_PATH = path.resolve(__dirname, '../dist');
 
 module.exports = {
   devtool: 'source-map',
@@ -32,36 +33,38 @@ module.exports = {
           },
         },
       },
-      // {
-      //   test: /\.scss$/,
-      //   use: ExtractTextPlugin.extract({
-      //     fallback: 'style-loader',
-      //     use: [
-      //       'css-loader',
-      //       {
-      //         loader: 'postcss-loader',
-      //         options: {
-      //           sourceMap: true,
-      //           config: { path: path.resolve(__dirname, './postcss.config.js') },
-      //         },
-      //       },
-      //       'sass-loader',
-      //       {
-      //         loader: 'sass-resources-loader',
-      //         options: {
-      //           resources: [
-      //             './client/src/stylesheets/shared/_constants.scss',
-      //             './client/src/stylesheets/shared/_mixins.scss'
-      //           ]
-      //         },
-      //       },
-      //     ],
-      //   }),
-      // },
+      {
+        test: /\.scss$/,
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
+            {
+              loader: 'css-loader',
+              options: {
+                modules: true,
+                localIdentName: '[folder]--[name]--[hash:base64:5]',
+              }
+            },
+            {
+              loader: 'postcss-loader',
+              options: {
+                config: { path: path.resolve(__dirname, './postcss.config.js') },
+              },
+            },
+            'sass-loader',
+            {
+              loader: 'sass-resources-loader',
+              options: {
+                resources: path.resolve(__dirname, '../client/src/stylesheets/_colors.scss')
+              },
+            },
+          ],
+        }),
+      },
     ],
   },
   resolve: {
-    extensions: ['.js', '.jsx'],
+    extensions: ['.js', '.jsx', '.scss'],
   },
   devServer: {
     contentBase: DIST_PATH,
@@ -71,5 +74,6 @@ module.exports = {
   mode: 'development',
   plugins: [
     new HtmlWebpackPlugin({ template: './client/src/index.html' }),
+    new ExtractTextPlugin({ filename: 'style_[hash].css' }),
   ],
 }
