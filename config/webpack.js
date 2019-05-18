@@ -55,7 +55,10 @@ module.exports = {
             {
               loader: 'sass-resources-loader',
               options: {
-                resources: path.resolve(__dirname, '../client/src/stylesheets/_colors.scss')
+                resources: [
+                  path.resolve(__dirname, '../client/src/stylesheets/_typography.scss'),
+                  path.resolve(__dirname, '../client/src/stylesheets/mixins/_breakpoints.scss'),
+                ],
               },
             },
           ],
