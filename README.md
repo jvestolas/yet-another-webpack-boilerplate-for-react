@@ -6,7 +6,7 @@
 * navigate to `localhost:1337` on a browser
 
 ## To Do
-* Add css hot reloading
 * Add `react-router`
 * Add `redux` and Duck pattern
+* Add `jest` test suite
 * Update `typography`
