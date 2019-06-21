@@ -2,13 +2,13 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
-const BUILD_DIR = path.resolve(__dirname, '../build');
+const BUILD_PATH = path.resolve(__dirname, '../build');
 
 module.exports = {
   devtool: 'source-map',
   entry: path.resolve(__dirname, '../client/src/index.jsx'),
   output: {
-    path: BUILD_DIR,
+    path: BUILD_PATH,
     publicPath: '/',
     filename: 'client.bundle.js',
   },
@@ -77,9 +77,9 @@ module.exports = {
     // }
   },
   devServer: {
-    contentBase: BUILD_DIR,
+    contentBase: BUILD_PATH,
     compress: true,
-    port: 3001,
+    port: 1337,
     historyApiFallback: true,
     watchContentBase: true,
     watchOptions: {
@@ -89,6 +89,6 @@ module.exports = {
   mode: 'development',
   plugins: [
     new HtmlWebpackPlugin({ template: './client/src/index.html' }),
-    new MiniCssExtractPlugin({ filename: '[name]--[hash:base64:5].styles.css' })
+    new MiniCssExtractPlugin({ filename: '[name].styles.css' })
   ],
 }
